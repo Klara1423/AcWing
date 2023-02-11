@@ -2,6 +2,23 @@
 #include <algorithm>
 #include <string>
 using namespace std;
+int check(int l, int m, int a[])
+{
+    sort(a, a + l);
+    for (int i = l - 1; i >= 0; i--)
+    {
+        if (m >= a[i])
+        {
+            if(i - 1 >= 0)
+            {
+                m -= a[i];
+                i--;
+            }
+        }
+        else return 0;
+    }
+    return 1;
+}
 
 int main()
 {
@@ -10,26 +27,17 @@ int main()
     
     for (int  i = 0; i < n; i++) cin >> a[i];
 
-    for (int i = 0; i < n - 1 ; i++)
+    for (int l = 0; l <= n; l++)
     {
-        if (m >= a[i])
+        if(check(l, m, a) == 0)
         {
-            if(m >= a[i + 1])
-            {
-                ans += 2;
-                m -= max(a[i], a[i + 1]);
-                i++;
-            }
-            else
-            {
-                ans ++;
-                m -= a[i];
-
-            }
-        }
-
-        else break;
+            ans = l - 1;
+            break;
+        }  
+        cout << 
     }
+    
+    if (check(n, m, a) == 1) ans = n;
     cout << ans;
     return 0;
 }
